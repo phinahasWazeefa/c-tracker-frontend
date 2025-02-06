@@ -1,0 +1,24 @@
+<>
+            <Grid item xs={2}>
+              <EditNotificationsOutlinedIcon
+                sx={{ color: "#1687A7", fontSize: "30px" }}
+              />
+            </Grid>
+            <Grid item xs={10}>
+              <Stack direction={"row"} justifyContent={"space-between"}>
+                <span style={{ fontWeight: "bold" }}>Notifications</span>
+
+                <span style={{ marginRight: "10%" }}>
+                  <NavigateNextIcon sx={{ fontSize: "30px" }} />
+                </span>
+              </Stack>
+            </Grid>
+            </>
+
+             <span style={{ marginRight: "10%" }}>
+                    <NavigateNextIcon sx={{ fontSize: "30px" }} />
+                  </span>
+
+                  ///////////////////////////////////////////////////////////////////////////
+
+                  https://episyche.com/blog/how-to-create-charts-using-chart-js-in-next-js : chart js
