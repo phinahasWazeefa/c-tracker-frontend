@@ -54,7 +54,7 @@ const signupFn = ()=>{
   }
 
   setLoading(true);
-  axios.post('/user/auth/create-user',{name:name,email:email,password:password,timezone:getUserTimeZone()})
+  axios.post('/auth/create-user',{name:name,email:email,password:password,timezone:getUserTimeZone()})
   .then((response) => {
     setLoading(false);
     setSnackbarMessage(response.data.message);
