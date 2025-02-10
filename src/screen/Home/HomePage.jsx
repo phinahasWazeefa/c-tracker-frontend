@@ -158,7 +158,7 @@ function HomePage() {
 
 
   const changeFormState = () => {
-    //console.log("btn clicked")
+   
     setFormState(true)
   }
 
@@ -167,8 +167,7 @@ function HomePage() {
   }
 
   const addNewExpense = (data) => {
-    //console.log(new Date());
-    console.log(data)
+    
     data.sessionId = sessionId;
     if (data.itemId == null || data.quantity == null) {
       setSnackbarMessage("All fields are required");
@@ -224,13 +223,20 @@ function HomePage() {
     });
   }
 
-  const closeCreateSessonHandler = ()=>{
-    if(sessionId){
-      closeASession()
-    }else{
-      createASession()
+  const closeCreateSessonHandler = () => {
+    if (sessionId) {
+      const confirmClose = window.confirm("Are you sure you want to close this session?");
+      if (confirmClose) {
+        closeASession();
+      }
+    } else {
+      const confirmCreate = window.confirm("Are you sure you want to create a new session?");
+      if (confirmCreate) {
+        createASession();
+      }
     }
-  }
+  };
+  
 
   const createASession = ()=>{
     try {

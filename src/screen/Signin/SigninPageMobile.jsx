@@ -18,7 +18,7 @@ import Snackbar from '../../components/Snackbar/Snackbar';
 //helpers
 import {getUserTimeZone} from '../../utils/commonFns';
 import axios from '../../axios';
-import { addUser, setLoginState } from '../../Redux/UserSlice'
+import { addUser, setLoginState, setToken } from '../../Redux/UserSlice'
 
 
 function SigninPageMobile() {
@@ -50,6 +50,7 @@ function SigninPageMobile() {
       if(typeof window !== 'undefined'){
         localStorage.setItem('tokenOs', response.data.token);
       }
+      dispatch(setToken(response.data.token));
       dispatch(addUser(response.data.user));
       dispatch(setLoginState(true));
       setLoading(false);

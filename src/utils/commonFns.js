@@ -29,13 +29,12 @@ export const  getUserTimeZone = ()=>{
   }
 
   export const getToken = ()=>{
-    console.log("tokenfromLs")
-    console.log(typeof window)
+
     let tokenFromLS;
   if(typeof window !== 'undefined'){
 
      tokenFromLS = localStorage.getItem('tokenOs');
-     console.log("tokenfromLs",tokenFromLS)
+
      return tokenFromLS;
   }
 

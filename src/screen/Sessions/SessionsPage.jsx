@@ -38,7 +38,7 @@ function SessionsPage() {
 
   useEffect(() => {
 
-    console.log("session page")
+   
 
     async function fetchData() {
       try {

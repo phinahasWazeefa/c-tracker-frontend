@@ -2,27 +2,68 @@
 
 import React, { useState, useEffect } from "react";
 import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import axios from "../../axios";
+import {getToken } from '../../utils/commonFns'
 
-const BillPage = ({ sessionData: initialData, error }) => {
+//components
+import Loader from '../../components/Loader/Loader';
+import Snackbar from '../../components/Snackbar/Snackbar';
+
+const BillPage = ({ sessionId }) => {
+
+   const [loading, setLoading] = useState(false);
+    const [snackbarState, setSnackbarState] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("Testing alerts");
+    const [snackbarServity, setSnackbarServity] = useState("info");
+
+    
+  const changeSnackbarState = () => {
+    setSnackbarState(false);
+  };
+
   const [sessionData, setSessionData] = useState(null);
 
   // Set session data when component mounts
   useEffect(() => {
-    
-    setSessionData(initialData.sessionBill);
-  }, [initialData]);
 
-  // Error Component
-  if (error) {
-    return (
-      <Typography variant="h6" color="error" align="center">
-        Error: {error}
-      </Typography>
-    );
-  }
+    async function fetchData() {
+      try {
+        setLoading(true)
+
+        const response = await axios.get(`/user/get-a-session-bill?sessionLogId=${sessionId}`, { headers: { Authorization: getToken() } });
+        setSessionData(response.data.sessionBill);
+        setLoading(false);
+
+      } catch (error) {
+        console.log(error.response);
+        setLoading(false)
+        setSnackbarMessage(
+          error.response?.data?.message || error.message || "Something went wrong while fetching session"
+        );
+        setSnackbarServity("error");
+        setSnackbarState(true);
+        setLoading(false);
+
+      }
+    }
+
+    fetchData()
+    
+    
+  }, []);
+
+
 
   return (
-    <Container sx={{ my: 4 }}>
+    <>
+     <Loader openState={loading} />
+          <Snackbar
+            message={snackbarMessage}
+            openStatus={snackbarState}
+            severity={snackbarServity}
+            onCloseFunction={changeSnackbarState}
+          />
+     <Container sx={{ my: 4 }}>
       <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "bold", color: "#1976D2" }}>
         Invoice
       </Typography>
@@ -59,9 +100,13 @@ const BillPage = ({ sessionData: initialData, error }) => {
           </Table>
         </TableContainer>
       ) : (
-        <Typography variant="h5" align="center">No items found</Typography>
+       null
       )}
     </Container>
+    {sessionData && sessionData?.items?.length == 0 ? <Typography variant="h5" align="center">No items found</Typography>:null }
+    
+    </>
+   
   );
 };
 

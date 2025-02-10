@@ -30,7 +30,7 @@ export default function BoxSx({
         <p style={{ color: "#362222" }}>{date}</p>
         <p>
           
-          <span>{item}&nbsp;({unitPrice})</span>*
+          <span>{item}&nbsp;</span>*
           <span style={{ fontSize: "18px", fontWeight: "bold" }}>
             {quantity}
           </span>
